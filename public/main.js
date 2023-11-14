@@ -2,8 +2,6 @@ let meuCampo;
 let dataCampo;
 let prioridadeCampo;
 let taskList;
-
-
 window.addEventListener('DOMContentLoaded', function () {
     meuCampo = document.getElementById('meuCampo');
     dataCampo = document.getElementById('dataCampo');
@@ -11,50 +9,32 @@ window.addEventListener('DOMContentLoaded', function () {
     taskList = this.document.getElementById('taskList');
 });
 
-function soma(n1, n2) {
-    return n1 + n2;
-}
-
-const resultadoSoma = soma(3, 4);
-
-// ...
 
 const prioridades = {};
-
 function addTask(nomeTarefa, data, prioridade) {
     nomeTarefa = nomeTarefa.trim();
     if (nomeTarefa === "") {
         alert("Por favor,informe a tarefa.");
         return;
     }
-
-    // alert(`tarefaValue = ${nomeTarefa}\ntarefaData = ${data}\ntarefaPrioridade = ${prioridade}`);
     if (!prioridades[prioridade]) {
         prioridades[prioridade] = [];
-    }
-
+          }
     prioridades[prioridade].push({ nomeTarefa, data });
-
-    let listaHTML = '';
+       let listaHTML = '';
     for (const [prioridade, tarefas] of Object.entries(prioridades)) {
-        // Construa a parte da lista para cada grupo de prioridade
         const grupoHTML = tarefas.map(({ nomeTarefa, data }) => `
-          <li><p>${prioridade} - ${nomeTarefa}</p><p>${data}</p></li>
-        `).join('');
-
-        // Adicione a parte da lista ao HTML final
+          <li><p> ${nomeTarefa}</p><p>${data}</p></li>`).join('');
         listaHTML += grupoHTML;
     }
-
-    // Adicione a lista ao elemento desejado (assumindo que taskList seja o ID do elemento)
-    document.getElementById('taskList').innerHTML += listaHTML;
-
-    // taskList.innerHTML +=
-    //     `
-    // <li><p>${prioridade} - ${nomeTarefa}</p><p>${data}</p></li>
-    // `
+    document.getElementById('taskList').innerHTML = listaHTML;
 }
-
+const filtro = ['alta', 'média', 'baixa']
+const sorted = filtro.sort((a, b) => {
+    let index1 = filtro.indexOf(a.split('@')[1])
+    let index2 = filtro.indexOf(b.split('@')[1])
+    return index1 == -1 ? 1 : index2 == -1 ? -1 : index1 - index2;
+})
 function funcaoSubmeter() {
     let batata = meuCampo.value.trim();
     let pato = dataCampo.value;
@@ -62,23 +42,10 @@ function funcaoSubmeter() {
 
     addTask(batata, pato, manga);
 }
-
-// document.getElementById('BotaoSubmeter').addEventListener('click', funcaoSubmeter);
-
-// var taskItem = document.createElement("li");
-// taskItem.className = "task-item";
-// taskItem.innerHTML = '<strong>' + meuCampo.value + '</strong>' +
-//     '<p>' + dataCampo.value + '</p>' +
-//     '<p>Data: ' + prioridadeCampo.value + '</p>' +
-//     '<span class="delete-btn" onclick="deleteTask(this)">X</span>';
-// taskList.appendChild(taskItem);
-
-// meuCampo.value = "";
-// dataCampo.value = "";
-// prioridadeCampo.value = "";
-
 function deleteTask(deleteBtn) {
     var taskList = document.getElementById("taskList");
     var taskItem = deleteBtn.parentNode;
     taskList.removeChild(taskItem);
 }
+
+
