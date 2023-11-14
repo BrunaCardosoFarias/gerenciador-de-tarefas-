@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/style.css">
+    <script src="main.js"></script>
+
+    <title>Gerenciador de Tarefas</title>
+</head>
+
+<body>
+
+    <label for="meuCampo">Digite a tarefa:</label>
+    <input type="text" id="meuCampo">
+    <label for="dataCampo">Selecione uma data:</label>
+    <input type="date" id="dataCampo">
+    <label for="prioridadeCampo">Selecione a prioridade:</label>
+    <select id="prioridadeCampo">
+        <option value="alta">Alta</option>
+        <option value="media">Média</option>
+        <option value="baixa">Baixa</option>
+    </select>
+    <button onclick="addTask()">Enviar</button>
+
+    <div class="card" id="card">
+        <ul class="task-list" id="taskList"></ul>
+        <button onclick="deleteTask()">Deletar</button>
+    </div>
+</body>
+
+</html>
