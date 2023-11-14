@@ -2,9 +2,6 @@ let meuCampo;
 let dataCampo;
 let prioridadeCampo;
 let taskList;
-const alta = [];
-const media = [];
-const baixa = [];
 
 
 window.addEventListener('DOMContentLoaded', function () {
@@ -14,44 +11,57 @@ window.addEventListener('DOMContentLoaded', function () {
     taskList = this.document.getElementById('taskList');
 });
 
+function soma(n1, n2) {
+    return n1 + n2;
+}
 
+const resultadoSoma = soma(3, 4);
 
+// ...
+
+const prioridades = {};
+
+function addTask(nomeTarefa, data, prioridade) {
+    nomeTarefa = nomeTarefa.trim();
+    if (nomeTarefa === "") {
+        alert("Por favor,informe a tarefa.");
+        return;
+    }
 
     // alert(`tarefaValue = ${nomeTarefa}\ntarefaData = ${data}\ntarefaPrioridade = ${prioridade}`);
+    if (!prioridades[prioridade]) {
+        prioridades[prioridade] = [];
+    }
 
+    prioridades[prioridade].push({ nomeTarefa, data });
 
-    // `    taskList.innerHTML +=
+    let listaHTML = '';
+    for (const [prioridade, tarefas] of Object.entries(prioridades)) {
+        // Construa a parte da lista para cada grupo de prioridade
+        const grupoHTML = tarefas.map(({ nomeTarefa, data }) => `
+          <li><p>${prioridade} - ${nomeTarefa}</p><p>${data}</p></li>
+        `).join('');
 
+        // Adicione a parte da lista ao HTML final
+        listaHTML += grupoHTML;
+    }
+
+    // Adicione a lista ao elemento desejado (assumindo que taskList seja o ID do elemento)
+    document.getElementById('taskList').innerHTML += listaHTML;
+
+    // taskList.innerHTML +=
+    //     `
     // <li><p>${prioridade} - ${nomeTarefa}</p><p>${data}</p></li>
     // `
+}
 
+function funcaoSubmeter() {
+    let batata = meuCampo.value.trim();
+    let pato = dataCampo.value;
+    let manga = prioridadeCampo.value;
 
-       addTask(meuCampo, dataCampo, prioridadeCampo);
-        
-        function addTask(meuCampo, dataCampo, prioridadeCampo){
-            meuCampo = meuCampo.trim();
-            if (meuCampo === "") {
-                alert("Por favor,informe a tarefa.");
-                return;
-        
-            }
-
-        switch (prioridadeCampo.value) {
-            case 'alta':
-                alta.push(`<li><p>${nomeTarefa}</p><p>${data}</p></li>`);
-                break;
-            case 'média':
-                media.push(`<li><p>${nomeTarefa}</p><p>${data}</p></li>`);
-                break;
-            case 'baixa':
-                baixa.push(`<li><p>${nomeTarefa}</p><p>${data}</p></li>`);
-                break;
-            default:
-                console.error(`Prioridade desconhecida: ${prioridade}`);
-                break;
-        }
-        updatetaskList();
-    }
+    addTask(batata, pato, manga);
+}
 
 // document.getElementById('BotaoSubmeter').addEventListener('click', funcaoSubmeter);
 
@@ -68,13 +78,7 @@ window.addEventListener('DOMContentLoaded', function () {
 // prioridadeCampo.value = "";
 
 function deleteTask(deleteBtn) {
+    var taskList = document.getElementById("taskList");
     var taskItem = deleteBtn.parentNode;
-    if (alta.includes(taskItem.outerHTML)) {
-        alta.splice(alta.indexOf(taskItem.outerHTML), 1);
-    } else if (media.includes(taskItem.outerHTML)) {
-        media.splice(media.indexOf(taskItem.outerHTML), 1);
-    } else if (baixa.includes(taskItem.outerHTML)) {
-        baixa.splice(baixa.indexOf(taskItem.outerHTML), 1);
-    }
-    updatetaskList();
+    taskList.removeChild(taskItem);
 }
