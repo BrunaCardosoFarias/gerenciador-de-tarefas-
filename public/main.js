@@ -1,51 +1,93 @@
-let meuCampo;
-let dataCampo;
-let prioridadeCampo;
-let taskList;
+function listaItemHTMLString(idNum, dataString, tarefaDescricao) {
+    return `
+    <div class="lista-item" id="lista-item-${idNum}">
+        <span class="lista-item-data">${dataString}</span>
+        <div class="lista-item-conteudo">
+            <button class="lista-item-botao-completar-tarefa" 
+                    onclick="completarTarefa('${idNum}')">
+            </button>
+            <span class="lista-item-tarefa">${tarefaDescricao}</span>
+        </div>
+    </div>`;
+}
+
+function completarTarefa(idNum) {
+    const id = `lista-item-${idNum}`;
+    document.getElementById(id).remove();
+}
+
+function htmlToElement(html) {
+    var template = document.createElement('template');
+    html = html.trim(); // Never return a text node of whitespace as the result
+    template.innerHTML = html;
+    return template.content.firstChild;
+}
+
+let listaBaixaItens;
+let listaMediaItens;
+let listaAltaItens;
+
+let incluiTarefaDescricaoInput;
+let incluiTarefaDataInput;
+let incluiTarefaPrioridadeSelect;
+
 window.addEventListener('DOMContentLoaded', function () {
-    meuCampo = document.getElementById('meuCampo');
-    dataCampo = document.getElementById('dataCampo');
-    prioridadeCampo = document.getElementById('prioridadeCampo');
-    taskList = this.document.getElementById('taskList');
+    const listaBaixa = document.getElementById('lista-baixa');
+    listaBaixaItens = listaBaixa.getElementsByClassName('lista-itens')[0];
+
+
+    const listaMedia = document.getElementById('lista-media');
+    listaMediaItens = listaMedia.getElementsByClassName('lista-itens')[0];
+
+    const listaAlta = document.getElementById('lista-alta');
+    listaAltaItens = listaAlta.getElementsByClassName('lista-itens')[0];
+
+
+    incluiTarefaDescricaoInput = document.getElementById('inclui-tarefa-descricao-input');
+    incluiTarefaDataInput = document.getElementById('inclui-tarefa-data-input');
+    incluiTarefaPrioridadeSelect = document.getElementById('inclui-tarefa-prioridade-select');
 });
 
+function incluiTarefaEnviar() {
+    const descricao = incluiTarefaDescricaoInput.value;
+    const data = incluiTarefaDataInput.valueAsDate;
+    const prioridade = incluiTarefaPrioridadeSelect.value;
 
-const prioridades = {};
-function addTask(nomeTarefa, data, prioridade) {
-    nomeTarefa = nomeTarefa.trim();
-    if (nomeTarefa === "") {
-        alert("Por favor,informe a tarefa.");
+    if (!descricao || !data || !prioridade) {
+        alert('Preencha todos os campos :)');
         return;
     }
-    if (!prioridades[prioridade]) {
-        prioridades[prioridade] = [];
-          }
-    prioridades[prioridade].push({ nomeTarefa, data });
-       let listaHTML = '';
-    for (const [prioridade, tarefas] of Object.entries(prioridades)) {
-        const grupoHTML = tarefas.map(({ nomeTarefa, data }) => `
-          <li><p> ${nomeTarefa}</p><p>${data}</p></li>`).join('');
-        listaHTML += grupoHTML;
+
+    const idNum = crypto.randomUUID().split('-')[0];
+
+    const dataFormatada = data.toLocaleString(undefined, {
+        day: 'numeric', 
+        month: 'numeric', 
+        year: 'numeric',
+        timeZone: 'UTC'
+    });
+
+    const novoItemHTMLString = listaItemHTMLString(idNum, dataFormatada, descricao);
+    const elementoNovoItem = htmlToElement(novoItemHTMLString);
+
+    let lista;
+
+    switch (prioridade) {
+        case 'baixa':
+            lista = listaBaixaItens;
+            break;
+        case 'media':
+            lista = listaMediaItens;
+            break;
+        case 'alta':
+            lista = listaAltaItens;
+            break;
+
+        default:
+            alert('Prioridade inválida.');
+            return;
     }
-    document.getElementById('taskList').innerHTML = listaHTML;
-}
-const filtro = ['alta', 'média', 'baixa']
-const sorted = filtro.sort((a, b) => {
-    let index1 = filtro.indexOf(a.split('@')[1])
-    let index2 = filtro.indexOf(b.split('@')[1])
-    return index1 == -1 ? 1 : index2 == -1 ? -1 : index1 - index2;
-})
-function funcaoSubmeter() {
-    let batata = meuCampo.value.trim();
-    let pato = dataCampo.value;
-    let manga = prioridadeCampo.value;
 
-    addTask(batata, pato, manga);
+    lista.appendChild(elementoNovoItem);
 }
-function deleteTask(deleteBtn) {
-    var taskList = document.getElementById("taskList");
-    var taskItem = deleteBtn.parentNode;
-    taskList.removeChild(taskItem);
-}
-
 

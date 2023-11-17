@@ -1,0 +1,106 @@
+.visualizacao-principal {
+    width: 100vw;
+    height: auto;
+
+    display: flex;
+    flex-flow: row wrap;
+    /* Ativar o modelo de layout flexível */
+    justify-content: center;
+    /* Centralizar no eixo principal (horizontal) */
+
+    /* height: 100vh; */
+    /* 100% da altura da viewport (tela) */
+
+    background-color: burlywood;
+}
+
+/* .visualizacao-principal > * {
+    padding: 10px;
+    flex: 1 100%;
+  } */
+
+@font-face {
+    font-family: CinnamonCoffeCake;
+    src: url(/fonts/CinnamonCoffeCake-Ea2Pr.ttf);
+}
+
+.titulo {
+    font-family: CinnamonCoffeCake;
+    font-weight: 600;
+}
+
+.titulo-principal {
+    font-size: xx-large;
+    text-align: center;
+
+    height: min-content;
+
+    margin: 10px;
+    /* Magic! */
+    padding: 10px;
+    flex: 1 100%;
+}
+
+.listas {
+    display: flex;
+    flex-flow: column wrap;
+
+    height: 50vh;
+
+    margin: 10px;
+    /* Magic! */
+    padding: 10px;
+    flex: 1 100%;
+
+    background-color: blanchedalmond;
+}
+
+.lista-tarefa {
+    width: calc(100% / 3);
+    flex: 3 100%;
+}
+
+.titulo-lista {
+    text-align: center;
+}
+
+#lista-media {
+    border-right: 1px dashed brown;
+    border-left: 1px dashed brown;
+}
+
+.lista-item {
+    display: flex;
+    flex-flow: row wrap;
+
+    font-size: x-small;
+    font-family: sans-serif;
+}
+
+.lista-item>* {
+    display: block;
+    flex: 1 100%;
+}
+
+.lista-item-data {
+    font-size: 17px;
+}
+
+.lista-item-conteudo {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+}
+
+.lista-item-botao-completar-tarefa {
+    content: '';
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: greenyellow;
+    margin-right: 10px;
+}
+
+.lista-item-tarefa {
+    font-size: 24px;
+}

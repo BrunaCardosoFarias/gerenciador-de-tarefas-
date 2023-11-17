@@ -12,22 +12,57 @@
 
 <body>
 
-    <label for="meuCampo">Digite a tarefa:</label>
-    <input type="text" id="meuCampo">
-    <label for="dataCampo">Selecione uma data:</label>
-    <input type="date" id="dataCampo">
-    <label for="prioridadeCampo">Selecione a prioridade:</label>
-    <select id="prioridadeCampo">
-        <option value="alta">Alta</option>
-        <option value="media">Média</option>
-        <option value="baixa">Baixa</option>
-    </select>
-    <button onclick="funcaoSubmeter()">Enviar</button>
+    <div id="form-inclui-tarefa">
+        <label for="inclui-tarefa-descricao-input">Digite a tarefa:</label>
+        <input type="text" id="inclui-tarefa-descricao-input">
+        <label for="inclui-tarefa-data-input">Selecione uma data:</label>
+        <input type="date" id="inclui-tarefa-data-input">
+        <label for="inclui-tarefa-prioridade-select">Selecione a prioridade:</label>
+        <select id="inclui-tarefa-prioridade-select">
+            <option value="alta">Alta</option>
+            <option value="media">Média</option>
+            <option value="baixa">Baixa</option>
+        </select>
+        <button onclick="incluiTarefaEnviar()" id="inclui-tarefa-enviar-button">
+            Enviar
+        </button>
+    </div>
 
-    <div class="card" id="card">
+    <!-- <div class="card" id="card">
         <ul class="task-list" id="taskList"></ul>
         <button onclick="deleteTask()">Deletar</button>
+    </div> -->
+
+    <div class="visualizacao-principal">
+        <div class="titulo titulo-principal">PRIORIDADE</div>
+        <div class="listas">
+            <div id="lista-alta" class="lista-tarefa">
+                <div class="titulo titulo-lista">ALTA</div>
+                <div name="lista-itens" class="lista-itens">
+                    <!-- <div class="lista-item" id="lista-item-6942">
+                        <span class="lista-item-data">13/12/2023</span>
+                        <div class="lista-item-conteudo">
+                            <button class="lista-item-botao-completar-tarefa"></button>
+                            <span class="lista-item-tarefa">Aniversário do meu amor s2</span>
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+            <div id="lista-media" class="lista-tarefa">
+                <div class="titulo titulo-lista">MEDIA</div>
+                <div name="lista-itens" class="lista-itens">
+                    <div class="lista-item" id="lista-item-6942"></div>
+                </div>
+            </div>
+            <div id="lista-baixa" class="lista-tarefa">
+                <div class="titulo titulo-lista">BAIXA</div>
+                <div name="lista-itens" class="lista-itens">
+                    <div class="lista-item" id="lista-item-6942"></div>
+                </div>
+            </div>
+        </div>
     </div>
+
 </body>
 
 </html>
