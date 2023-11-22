@@ -4,20 +4,9 @@
 
     display: flex;
     flex-flow: row wrap;
-    /* Ativar o modelo de layout flexível */
     justify-content: center;
-    /* Centralizar no eixo principal (horizontal) */
-
-    /* height: 100vh; */
-    /* 100% da altura da viewport (tela) */
-
     background-color: burlywood;
 }
-
-/* .visualizacao-principal > * {
-    padding: 10px;
-    flex: 1 100%;
-  } */
 
 @font-face {
     font-family: CinnamonCoffeCake;
@@ -62,6 +51,7 @@
 
 .titulo-lista {
     text-align: center;
+    font-size: 30px;
 }
 
 #lista-media {
@@ -103,4 +93,8 @@
 
 .lista-item-tarefa {
     font-size: 24px;
+}
+#form-inclui-tarefa{
+    font-size: 25px;
+
 }
